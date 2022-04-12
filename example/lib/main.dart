@@ -22,11 +22,10 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: Center(
             child: SmoothStarRating(
+          halFilledSVG: "assets/star_color.svg",
+          filledSVG: "assets/star_without_color.svg",
           rating: rating,
           size: 65,
-          filledIconData: Icons.star,
-          halfFilledIconData: Icons.star_half,
-          defaultIconData: Icons.star_border,
           starCount: 5,
           allowHalfRating: false,
           spacing: 2.0,

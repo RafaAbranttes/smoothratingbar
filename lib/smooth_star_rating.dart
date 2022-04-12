@@ -1,7 +1,7 @@
 library smooth_star_rating;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 typedef void RatingChangeCallback(double rating);
 
@@ -13,47 +13,37 @@ class SmoothStarRating extends StatelessWidget {
   final Color borderColor;
   final double size;
   final bool allowHalfRating;
-  final IconData filledIconData;
-  final IconData halfFilledIconData;
-  final IconData
-      defaultIconData; //this is needed only when having fullRatedIconData && halfRatedIconData
+  final String filledSVG;
+  final String halFilledSVG;
   final double spacing;
   SmoothStarRating({
     this.starCount = 5,
-    this.spacing=0.0,
+    this.spacing = 0.0,
     this.rating = 0.0,
-    this.defaultIconData,
     this.onRatingChanged,
     this.color,
     this.borderColor,
     this.size = 25,
-    this.filledIconData,
-    this.halfFilledIconData,
+    @required this.filledSVG,
+    @required this.halFilledSVG,
     this.allowHalfRating = true,
   }) {
     assert(this.rating != null);
   }
 
   Widget buildStar(BuildContext context, int index) {
-    Icon icon;
+    SvgPicture icon;
     if (index >= rating) {
-      icon = new Icon(
-        defaultIconData != null ? defaultIconData : Icons.star_border,
-        color: borderColor ?? Theme.of(context).primaryColor,
-        size: size,
-      );
-    } else if (index > rating - (allowHalfRating ? 0.5 : 1.0) &&
-        index < rating) {
-      icon = new Icon(
-        halfFilledIconData != null ? halfFilledIconData : Icons.star_half,
-        color: color ?? Theme.of(context).primaryColor,
-        size: size,
+      icon = SvgPicture.asset(
+        halFilledSVG,
+        height: size,
+        width: size,
       );
     } else {
-      icon = new Icon(
-        filledIconData != null ? filledIconData : Icons.star,
-        color: color ?? Theme.of(context).primaryColor,
-        size: size,
+      icon = SvgPicture.asset(
+        filledSVG,
+        height: size,
+        width: size,
       );
     }
 
